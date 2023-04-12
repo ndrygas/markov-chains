@@ -55,7 +55,6 @@ def make_chains(text_string):
         value = words[i+2]
         if bigram not in chains:
             values = [words[i+2]]
-            
             chains[bigram] = values
         elif bigram in chains:
             # add_value = chains[bigram]
@@ -76,11 +75,48 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
-    words = []
-
-    # your code goes here
-    # words = [bigram[i][0], bigram[i][1]]
+    # #tuple of random starter key
+    # words = choice(list(chains.keys()))
+    # #swaps tuple to main list of strings
+    # list_words = list(words)
     
+    # while True:
+    #     try:
+    #         #finds first word for next key
+    #         word2 = list_words[-1]
+    #         #
+    #         next_word = (word2, choice(words))
+    #         list_words.append(next_word[0])
+            
+    #         # words = choice(list(chains.keys()))
+    #         # #got a random key (tuple)
+    #         # #now need to add first position
+    #         # print(words)
+
+    #     except:
+    #         break
+    # # your code goes here
+    # # words = [bigram[i][0], bigram[i][1]]
+    
+    # return ' '.join(list_words)
+
+    key = choice(list(chains.keys()))
+    words = [key[0], key[1]]
+    word = choice(chains[key])
+
+    # Keep looping until we reach a value of None
+    # (which would mean it was the end of our original text)
+    # Note that for long texts (like a full book), this might mean
+    # it would run for a very long time.
+
+    while word is not None:
+        try:
+            key = (key[1], word)
+            words.append(word)
+            word = choice(chains[key])
+        except:
+            break
+
     return ' '.join(words)
 
 
